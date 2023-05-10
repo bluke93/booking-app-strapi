@@ -1,0 +1,30 @@
+{
+  "collectionName": "components_block_text_and_images",
+  "info": {
+    "displayName": "Text and Image"
+  },
+  "options": {},
+  "attributes": {
+    "Title": {
+      "type": "richtext"
+    },
+    "Description": {
+      "type": "richtext"
+    },
+    "images": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": true
+    },
+    "Active": {
+      "type": "boolean",
+      "default": true,
+      "required": true
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_block_images",
+  "info": {
+    "displayName": "Image"
+  },
+  "options": {},
+  "attributes": {
+    "images": {
+      "allowedTypes": ["images", "files", "videos", "audios"],
+      "type": "media",
+      "multiple": true
+    },
+    "Active": {
+      "type": "boolean",
+      "default": true,
+      "required": true
+    }
+  }
+}
