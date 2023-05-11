@@ -1,9 +1,13 @@
 import React, { useContext, useReducer, useState } from 'react';
-import '../../assets/style/calendar.css';
+import '../../assets/style/calendar.scss';
 import { Box, BaseHeaderLayout, Button } from "@strapi/design-system"
+import { ArrowLeft, ArrowRight, Refresh } from '@strapi/icons';
 import { daysOfWeek, datesForGrid, labelMonth } from './calendar'
-import { changeMonth, selectMonth } from '../../utils/reducers';
+import { changeMonth, resetMonth } from '../../utils/reducers';
 import { useDispatch, useSelector } from 'react-redux';
+import getTrad from '../../utils/getTrad'
+import { useIntl } from 'react-intl';
+
 
 
 const Calendar = () => {
@@ -23,12 +27,14 @@ const Calendar = () => {
 
 function showCalendar(){
   return <>
-    <Box padding={4}>
-      {renderControls()}
-    </Box>
-    <div className='calendar-grid'>
-      {renderTableHeader()}
-      {renderTableBody()}
+    <div className='calendar-container'>
+      <Box padding={4}>
+        {renderControls()}
+      </Box>
+      <div className='calendar-grid'>
+        {renderTableHeader()}
+        {renderTableBody()}
+      </div>
     </div>
   </>
 }
@@ -40,18 +46,24 @@ function renderControls(){
     dispatch(changeMonth(value));
   };
 
+  const resetCalendarView = () => {
+    dispatch(resetMonth());
+  };
+
   const currentDate = useSelector((state) => state.currentDate);
+  const { formatMessage } = useIntl();
 
   return <>
     <div className='calendar-controls'>
       <div className='navigate'>
-        <Button variant='tertiary' onClick={() => handleChangeMonth(-1)}>Previous</Button>
+        <Button variant='tertiary' size="L" onClick={() => handleChangeMonth(-1)} startIcon={<ArrowLeft />}>{formatMessage({id: getTrad('calendar.controls.previous')})}</Button>
       </div>
       <div className='label'>
         {labelMonth(currentDate)}
       </div>
       <div className='navigate'>
-        <Button variant='tertiary' onClick={() => handleChangeMonth(1)}>Next</Button>
+        <Button variant='tertiary' size="L" onClick={resetCalendarView} endIcon={<Refresh />}>{formatMessage({id: getTrad('calendar.controls.jump_to_today')})}</Button>
+        <Button variant='tertiary' size="L" onClick={() => handleChangeMonth(1)} endIcon={<ArrowRight />}>{formatMessage({id: getTrad('calendar.controls.next')})}</Button>
       </div>
     </div>
   </>
