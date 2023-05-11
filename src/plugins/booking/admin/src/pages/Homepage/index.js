@@ -41,6 +41,7 @@ function buildSlots(open = '09:00', close = '18:00', duration = 30, delay = 10){
     currentHour = add(currentHour, {minutes: delay})
   }
 
+
   return slots;
 
 }
@@ -49,7 +50,7 @@ function showSlots(){
 
   const slots = buildSlots('09:00','18:00', 30, 10);
 
-
+  console.log(slots);
 
   const ROW_COUNT = slots.length + 1;
   const COL_COUNT = 10;

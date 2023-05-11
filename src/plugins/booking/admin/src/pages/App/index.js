@@ -9,15 +9,22 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { AnErrorOccurred } from '@strapi/helper-plugin';
 import pluginId from '../../pluginId';
-import Homepage from '../HomePage';
+import Homepage from '../Homepage';
+import Calendar from '../Calendar/index'
+import { Provider } from 'react-redux'
+import store from '../../utils/store'
 
 const App = () => {
+
   return (
     <div>
-      <Switch>
-        <Route path={`/plugins/${pluginId}`} component={Homepage} exact />
-        <Route component={AnErrorOccurred} />
-      </Switch>
+      <Provider store={store}>
+        <Switch>
+          <Route path={`/plugins/${pluginId}/ole`} component={Homepage} exact />
+          <Route path={`/plugins/${pluginId}`} component={Calendar} exact  />
+          <Route component={AnErrorOccurred} />
+        </Switch>
+      </Provider>
     </div>
   );
 };

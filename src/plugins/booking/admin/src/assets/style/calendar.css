@@ -1,0 +1,85 @@
+.calendar-controls {
+  display:flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.calendar-controls .label {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 30px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 14.285%);
+  grid-template-rows: 50px repeat(6, 100px);
+  width: 100%;
+}
+
+.calendar-grid .header.weekday {
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  color: #32324d;
+}
+
+.calendar-grid .body.weekday {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #eaeaef;
+  margin-top: -1px;
+  margin-left: -1px;
+  position: relative;
+}
+
+.calendar-grid .body.weekday .day {
+  font-size: 20px;
+  font-weight: bold;
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 5px;
+  opacity: 1;
+  color: #666687;
+}
+.calendar-grid .body.prev .day,
+.calendar-grid .body.next .day {
+  opacity: 0.4;
+}
+.calendar-grid .body.today .day {
+  color: #fff;
+  opacity: 1;
+}
+
+.calendar-grid .body.prev,
+.calendar-grid .body.next {
+  background-color: #f6f6f9;
+  color: #666687;
+}
+
+
+
+.calendar-grid .body.current:hover {
+  background-color: #d9d8ff;
+  color: #fff;
+  cursor: pointer;
+}
+
+.calendar-grid .body.today {
+  background-color: #271fe0;
+  color: #fff;
+}
+
+.calendar-grid .body.today:hover {
+  background-color: #4945ff;
+}
+
+
