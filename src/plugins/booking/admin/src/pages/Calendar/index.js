@@ -41,6 +41,7 @@ function showCalendar(){
 
 function renderControls(){
   const currentDate = useSelector((state) => state.currentDate);
+  const currentLocale = useSelector((state) => state.locale);
   const dispatch = useDispatch();
 
   const handleChangeMonth = (value) => {

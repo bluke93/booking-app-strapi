@@ -30,7 +30,7 @@ var months = ()=>{
   let result = [];
   for(let m = 0; m < yearsToMonths(1); m++){
     const date = new Date(state.year, m, 1);
-    const formattedDate = format(date, 'MMMM');
+    const formattedDate = format(date, 'MMMM', {locale: retrieveLocale()});
     result.push(formattedDate);
   }
   return result;
@@ -39,7 +39,7 @@ var months = ()=>{
 var daysOfWeek = ()=>{
   let startWeekDay = startOfWeek(new Date(), { weekStartsOn: 1 })
   let weekDaysInterval = eachDayOfInterval({start: startWeekDay, end: addDays(startWeekDay, 6)});
-  let result = weekDaysInterval.map(day => format(day, 'EEEE'));
+  let result = weekDaysInterval.map(day => format(day, 'EEEE', {locale: retrieveLocale()}));
   return result;
 }
 
@@ -85,7 +85,7 @@ function datesForGrid(date) {
 }
 
 function labelMonth(date){
-  return format(date, 'MMMM yyyy');
+  return format(date, 'MMMM yyyy', {locale: retrieveLocale()});
 }
 
 
