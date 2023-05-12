@@ -1,7 +1,16 @@
 import { yearsToMonths, format, setDefaultOptions, eachDayOfInterval, startOfWeek, addDays, getMonth, getYear, addMonths } from "date-fns";
-import { it } from 'date-fns/locale'
+import { it, en } from 'date-fns/locale'
 
-setDefaultOptions({ locale: it })
+setDefaultOptions({ locale: retrieveLocale() })
+
+function retrieveLocale(){
+  const currentLocale = localStorage.getItem('strapi-admin-language');
+  switch(currentLocale){
+    case 'it': return it;
+    case 'en': return en;
+    default: return en;
+  }
+}
 
 var gridSize = 42; //Total number of date boxes in the grid
 

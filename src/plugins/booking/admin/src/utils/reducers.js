@@ -1,10 +1,11 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { getMonth, getYear, addMonths, format } from 'date-fns'
 
+
 const initialState = {
   currentDate: new Date(),
   todayDate: new Date(),
-  status: 'idle',
+  locale: localStorage.getItem('strapi-admin-language')
 }
 
 export const calendarSlice = createSlice({

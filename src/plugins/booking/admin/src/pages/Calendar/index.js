@@ -40,6 +40,7 @@ function showCalendar(){
 }
 
 function renderControls(){
+  const currentDate = useSelector((state) => state.currentDate);
   const dispatch = useDispatch();
 
   const handleChangeMonth = (value) => {
@@ -50,7 +51,6 @@ function renderControls(){
     dispatch(resetMonth());
   };
 
-  const currentDate = useSelector((state) => state.currentDate);
   const { formatMessage } = useIntl();
 
   return <>
