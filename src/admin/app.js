@@ -4,7 +4,9 @@ const config = {
     'it'
   ],
   translations: {
-    it: {},
+    it: {
+      "components.Select.placeholder": "Select"
+    },
     en: {},
   },
 };

@@ -1,4 +1,5 @@
 {
+  "plugin.name": "Bookings",
   "calendar.controls.previous": "Previous",
   "calendar.controls.next": "Next",
   "calendar.controls.jump_to_today": "Jump to today"

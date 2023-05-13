@@ -1,14 +1,13 @@
-import React, { useContext, useReducer, useState } from 'react';
+import React from 'react';
 import '../../assets/style/calendar.scss';
 import { Box, BaseHeaderLayout, Button } from "@strapi/design-system"
 import { ArrowLeft, ArrowRight, Refresh } from '@strapi/icons';
-import { daysOfWeek, datesForGrid, labelMonth } from './calendar'
+import { daysOfWeek, datesForGrid, labelMonth } from '../../utils/calendar'
 import { changeMonth, resetMonth } from '../../utils/reducers';
 import { useDispatch, useSelector } from 'react-redux';
+import { Switch, Route, useHistory } from 'react-router-dom';
 import getTrad from '../../utils/getTrad'
 import { useIntl } from 'react-intl';
-
-
 
 const Calendar = () => {
   return (
@@ -41,7 +40,6 @@ function showCalendar(){
 
 function renderControls(){
   const currentDate = useSelector((state) => state.currentDate);
-  const currentLocale = useSelector((state) => state.locale);
   const dispatch = useDispatch();
 
   const handleChangeMonth = (value) => {
@@ -85,10 +83,15 @@ function renderTableHeader(){
 
 function renderTableBody(){
   const currentDate = useSelector((state) => state.currentDate);
+  const history = useHistory();
+  const navigateToDay = (day) => {
+    history.push({ pathname: "/plugins/booking/daily", search: `?date=${day}`});
+  }
+
   return <>
     {datesForGrid(currentDate).map((day, index) => {
       return <React.Fragment key={index}>
-        <div className={`body weekday ${day.monthClass} ${day.todayClass ? 'today' : ''}`} key={index}>
+        <div className={`body weekday ${day.monthClass} ${day.todayClass ? 'today' : ''}`} key={index} onClick={() => {navigateToDay(day.key)}}>
           <p className='day'>{day.date}</p>
         </div>
       </React.Fragment>

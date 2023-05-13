@@ -16,20 +16,11 @@ var gridSize = 42; //Total number of date boxes in the grid
 
 var today = new Date();
 
-var state = {
-  currentDate: new Date(),
-  currentYear: getYear(today),
-  currentMonth: getMonth(today),
-  //
-  date: new Date(),
-  year: getYear(today),
-  month: getMonth(today),
-}
-
 var months = ()=>{
+  let year = getYear(new Date())
   let result = [];
   for(let m = 0; m < yearsToMonths(1); m++){
-    const date = new Date(state.year, m, 1);
+    const date = new Date(year, m, 1);
     const formattedDate = format(date, 'MMMM', {locale: retrieveLocale()});
     result.push(formattedDate);
   }
@@ -77,7 +68,7 @@ function datesForGrid(date) {
   if(dates.length < gridSize) {
     var count = gridSize - dates.length;
     for(var i = 1; i <= count; i++) {
-      var key = new Date(state.year, state.month + 1, i).toLocaleString();
+      var key = new Date(year, month + 1, i).toLocaleString();
       dates.push({key: key, date: i, monthClass:'next'});
     }
   }
