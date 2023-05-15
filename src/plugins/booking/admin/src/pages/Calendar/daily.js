@@ -1,24 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 // import PropTypes from 'prop-types';
 import pluginId from '../../pluginId';
-import { Box, BaseHeaderLayout, TabGroup, Tabs, Tab, TabPanels, TabPanel, Badge } from "@strapi/design-system"
+import { Box, BaseHeaderLayout, TabGroup, Tabs, Tab, TabPanels, TabPanel, Badge, Switch } from "@strapi/design-system"
 import { Table, Thead, Tbody, Tr, Td, Th, BaseCheckbox, Typography, VisuallyHidden, Avatar, Flex, IconButton} from '@strapi/design-system';
 import { Pencil, Trash } from '@strapi/icons'
 
 import { format, parseISO, add } from 'date-fns'
 
 
-function buildSlots(open = '09:00', close = '18:00', duration = 30, delay = 10){
+function buildSlots(open = '09:00', close = '18:00', duration = 30, quantity = 1, delay = 10){
   if(open >= close){
     return [];
   }
-  const dayHours = 24;
-
   const openHour = parseISO(`2019-02-11T${open}:00`);
   const closeHour = parseISO(`2019-02-11T${close}:00`);
-
-  const formattedOpenHour = format(openHour, 'HH:mm');
-  const formattedCloseHour = format(closeHour, 'HH:mm');
 
   const slots = [];
 
@@ -35,22 +30,23 @@ function buildSlots(open = '09:00', close = '18:00', duration = 30, delay = 10){
     const slot = {
       start: format(startSlot, 'HH:mm'),
       end: format(currentHour, 'HH:mm'),
+      reservations: [],
+      maxReservations: quantity,
+      enabled: true,
     }
+
     slots.push(slot);
 
     currentHour = add(currentHour, {minutes: delay})
   }
 
-
   return slots;
-
 }
 
 function showSlots(){
 
-  const slots = buildSlots('09:00','18:00', 30, 10);
+  const slots = buildSlots('09:00','18:00', 60, 5, 0);
 
-  console.log(slots);
 
   const ROW_COUNT = slots.length + 1;
   const COL_COUNT = 10;
@@ -65,9 +61,22 @@ function showSlots(){
       ...entry,
       startHour: slot.start,
       endHour: slot.end,
+      enabled: slot.enabled,
       id: index
     });
   })
+  const [state, setState] = useState({
+    slots: entries
+  });
+  const setActivated = (row) => {
+    setState(state => {
+      const newRow = {...row, enabled: !row.enabled};
+      const newState = state;
+      newState.slots[row.id] = newRow;
+      return {...newState};
+    });
+    console.log(state);
+  }
   return <Table colCount={COL_COUNT} rowCount={ROW_COUNT}>
           <Thead>
             <Tr>
@@ -89,7 +98,7 @@ function showSlots(){
             </Tr>
           </Thead>
           <Tbody>
-            {entries.map(entry => <Tr key={entry.id}>
+            {state.slots.map(entry => <Tr key={entry.id}>
                 <Td>
                   <Typography textColor="neutral800">{entry.startHour}</Typography>
                 </Td>
@@ -108,7 +117,8 @@ function showSlots(){
                     <Box paddingLeft={1}>
                       <IconButton onClick={() => console.log('delete')} label="Delete" noBorder icon={<Trash />} />
                     </Box>
-                  </Flex>
+                    <Switch selected={entry.enabled} onChange={() => setActivated(entry)} />
+                   </Flex>
                 </Td>
               </Tr>)}
           </Tbody>

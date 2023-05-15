@@ -1,5 +1,5 @@
 import { yearsToMonths, format, setDefaultOptions, eachDayOfInterval, startOfWeek, addDays, getMonth, getYear, addMonths } from "date-fns";
-import { it, en } from 'date-fns/locale'
+import { it, enGB } from 'date-fns/locale'
 
 setDefaultOptions({ locale: retrieveLocale() })
 
@@ -7,8 +7,8 @@ function retrieveLocale(){
   const currentLocale = localStorage.getItem('strapi-admin-language');
   switch(currentLocale){
     case 'it': return it;
-    case 'en': return en;
-    default: return en;
+    case 'en': return enGB;
+    default: return enGB;
   }
 }
 
