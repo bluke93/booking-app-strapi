@@ -2,8 +2,16 @@ import React, { useState } from 'react';
 // import PropTypes from 'prop-types';
 import pluginId from '../../pluginId';
 import { Box, BaseHeaderLayout, TabGroup, Tabs, Tab, TabPanels, TabPanel, Badge, Switch } from "@strapi/design-system"
+import {
+  SubNav,
+  SubNavHeader,
+  SubNavSection,
+  SubNavSections,
+  SubNavLink,
+  SubNavLinkSection,
+} from '@strapi/design-system/v2';
 import { Table, Thead, Tbody, Tr, Td, Th, BaseCheckbox, Typography, VisuallyHidden, Avatar, Flex, IconButton} from '@strapi/design-system';
-import { Pencil, Trash } from '@strapi/icons'
+import { Pencil, Trash, Apps, ExclamationMarkCircle } from '@strapi/icons'
 
 import { format, parseISO, add } from 'date-fns'
 
@@ -126,46 +134,98 @@ function showSlots(){
 }
 
 
+// const Daily = () => {
+//   return (
+//     <>
+//       <Box background="neutral100">
+//         <BaseHeaderLayout title="Appointments" subtitle="36 pending appointments found" as="h2" />
+//       </Box>
+//       <Box padding={8}>
+//         <Box padding={4} hasRadius background="neutral0" shadow="tableShadow">
+//           <TabGroup label="Some stuff for the label" id="tabs" onTabChange={selected => console.log(selected)}>
+//             <Tabs>
+//               <Tab>Pending <Badge size="S" active>18</Badge></Tab>
+//               <Tab>Upcoming</Tab>
+//               <Tab>Past</Tab>
+//               <Tab>Canceled</Tab>
+//             </Tabs>
+//             <TabPanels>
+//               <TabPanel>
+//                 <Box color="neutral800" padding={4} background="neutral0">
+//                   Pending
+//                 </Box>
+//               </TabPanel>
+//               <TabPanel>
+//                 <Box color="neutral800" padding={4} background="neutral0">
+//                   {showSlots()}
+//                 </Box>
+//               </TabPanel>
+//               <TabPanel>
+//                 <Box color="neutral800" padding={4} background="neutral0">
+//                   Past
+//                 </Box>
+//               </TabPanel>
+//               <TabPanel>
+//                 <Box color="neutral800" padding={4} background="neutral0">
+//                   Canceled
+//                 </Box>
+//               </TabPanel>
+//             </TabPanels>
+//           </TabGroup>
+//         </Box>
+//       </Box>
+//     </>
+//   );
+// };
+
 const Daily = () => {
+  const links = [{
+    id: 1,
+    label: 'Addresses',
+    icon: <ExclamationMarkCircle />,
+    to: '/address'
+  }, {
+    id: 2,
+    label: 'Categories',
+    to: '/category'
+  }, {
+    id: 3,
+    label: 'Cities',
+    icon: <Apps />,
+    to: '/city',
+    active: true
+  }, {
+    id: 4,
+    label: 'Countries',
+    to: '/country'
+  }];
   return (
     <>
-      <Box background="neutral100">
-        <BaseHeaderLayout title="Appointments" subtitle="36 pending appointments found" as="h2" />
-      </Box>
-      <Box padding={8}>
-        <Box padding={4} hasRadius background="neutral0" shadow="tableShadow">
-          <TabGroup label="Some stuff for the label" id="tabs" onTabChange={selected => console.log(selected)}>
-            <Tabs>
-              <Tab>Pending <Badge size="S" active>18</Badge></Tab>
-              <Tab>Upcoming</Tab>
-              <Tab>Past</Tab>
-              <Tab>Canceled</Tab>
-            </Tabs>
-            <TabPanels>
-              <TabPanel>
-                <Box color="neutral800" padding={4} background="neutral0">
-                  Pending
-                </Box>
-              </TabPanel>
-              <TabPanel>
-                <Box color="neutral800" padding={4} background="neutral0">
-                  {showSlots()}
-                </Box>
-              </TabPanel>
-              <TabPanel>
-                <Box color="neutral800" padding={4} background="neutral0">
-                  Past
-                </Box>
-              </TabPanel>
-              <TabPanel>
-                <Box color="neutral800" padding={4} background="neutral0">
-                  Canceled
-                </Box>
-              </TabPanel>
-            </TabPanels>
-          </TabGroup>
+      <Flex>
+        <Box style={{height: '100vh'}} background="neutral100">
+          <SubNav ariaLabel="Settings sub nav">
+            <SubNavHeader label="Settings" />
+            <SubNavSections>
+              <SubNavLink to="/blabla" withBullet icon={<Apps />} className="active">
+                Application
+              </SubNavLink>
+              <SubNavSection label="Global Settings">
+                {links.map(link => link.icon && <SubNavLink to={link.to} active={link.active} icon={link.icon} key={link.id} isSubSectionChild>
+                        {link.label}
+                      </SubNavLink>)}
+              </SubNavSection>
+              <SubNavSection label="Permissions">
+                {links.map(link => link.icon && <SubNavLink to={link.to} icon={link.icon} key={link.id}>
+                        {link.label}
+                      </SubNavLink>)}
+              </SubNavSection>
+            </SubNavSections>
+          </SubNav>
         </Box>
-      </Box>
+        <Box padding={4} hasRadius background="neutral0" shadow="tableShadow">
+            {showSlots()}
+        </Box>
+      </Flex>
     </>
   );
 };
