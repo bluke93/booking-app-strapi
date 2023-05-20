@@ -1,8 +1,11 @@
 import React from 'react';
-import { Calendar, Clock } from '@strapi/icons';
 
 function DailyRowView (){
-
+  return <>
+    <div className="accordion-day-view">
+      test
+    </div>
+  </>
 }
 
 export default DailyRowView;

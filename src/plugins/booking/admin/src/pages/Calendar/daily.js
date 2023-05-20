@@ -14,6 +14,7 @@ import { Table, Thead, Tbody, Tr, Td, Th, BaseCheckbox, Typography, VisuallyHidd
 import { Pencil, Trash, Apps, ExclamationMarkCircle } from '@strapi/icons'
 
 import { format, parseISO, add } from 'date-fns'
+import DailyRowView from '../../components/Calendar/DailyRowView';
 
 
 function buildSlots(open = '09:00', close = '18:00', duration = 30, quantity = 1, delay = 10){
@@ -85,7 +86,7 @@ function showSlots(){
     });
     console.log(state);
   }
-  return <Table colCount={COL_COUNT} rowCount={ROW_COUNT}>
+  return <Table colCount={COL_COUNT} rowCount={ROW_COUNT} >
           <Thead>
             <Tr>
               <Th>
@@ -125,7 +126,7 @@ function showSlots(){
                     <Box paddingLeft={1}>
                       <IconButton onClick={() => console.log('delete')} label="Delete" noBorder icon={<Trash />} />
                     </Box>
-                    <Switch selected={entry.enabled} onChange={() => setActivated(entry)} />
+                    <Switch selected={entry.enabled} onChange={() => setActivated(entry)} label="Active slot" />
                    </Flex>
                 </Td>
               </Tr>)}
@@ -222,9 +223,7 @@ const Daily = () => {
             </SubNavSections>
           </SubNav>
         </Box>
-        <Box padding={4} hasRadius background="neutral0" shadow="tableShadow">
-            {showSlots()}
-        </Box>
+          {showSlots()}
       </Flex>
     </>
   );
