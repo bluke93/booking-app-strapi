@@ -12,9 +12,6 @@ import { useIntl } from 'react-intl';
 const Calendar = () => {
   return (
     <>
-      <Box background="neutral100">
-        <BaseHeaderLayout title="Appointments" subtitle="36 pending appointments found" as="h2" />
-      </Box>
       <Box padding={8}>
         <Box hasRadius background="neutral0" shadow="tableShadow">
           {showCalendar()}
@@ -85,7 +82,7 @@ function renderTableBody(){
   const currentDate = useSelector((state) => state.currentDate);
   const history = useHistory();
   const navigateToDay = (day) => {
-    history.push({ pathname: "/plugins/booking/daily", search: `?date=${day}`});
+    history.push({ pathname: "/admin/plugins/booking/daily", search: `?date=${day}`});
   }
 
   return <>

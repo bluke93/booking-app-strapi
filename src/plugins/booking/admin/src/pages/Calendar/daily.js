@@ -180,51 +180,11 @@ function showSlots(){
 // };
 
 const Daily = () => {
-  const links = [{
-    id: 1,
-    label: 'Addresses',
-    icon: <ExclamationMarkCircle />,
-    to: '/address'
-  }, {
-    id: 2,
-    label: 'Categories',
-    to: '/category'
-  }, {
-    id: 3,
-    label: 'Cities',
-    icon: <Apps />,
-    to: '/city',
-    active: true
-  }, {
-    id: 4,
-    label: 'Countries',
-    to: '/country'
-  }];
   return (
     <>
-      <Flex>
-        <Box style={{height: '100vh'}} background="neutral100">
-          <SubNav ariaLabel="Settings sub nav">
-            <SubNavHeader label="Settings" />
-            <SubNavSections>
-              <SubNavLink to="/blabla" withBullet icon={<Apps />} className="active">
-                Application
-              </SubNavLink>
-              <SubNavSection label="Global Settings">
-                {links.map(link => link.icon && <SubNavLink to={link.to} active={link.active} icon={link.icon} key={link.id} isSubSectionChild>
-                        {link.label}
-                      </SubNavLink>)}
-              </SubNavSection>
-              <SubNavSection label="Permissions">
-                {links.map(link => link.icon && <SubNavLink to={link.to} icon={link.icon} key={link.id}>
-                        {link.label}
-                      </SubNavLink>)}
-              </SubNavSection>
-            </SubNavSections>
-          </SubNav>
-        </Box>
-          {showSlots()}
-      </Flex>
+      <Box padding={8}>
+        {showSlots()}
+      </Box>
     </>
   );
 };

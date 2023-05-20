@@ -6,23 +6,28 @@
  */
 
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Route, Switch, BrowserRouter, useLocation } from 'react-router-dom';
 import { AnErrorOccurred } from '@strapi/helper-plugin';
 import pluginId from '../../pluginId';
 import Calendar from '../Calendar/index'
 import Daily from '../Calendar/daily'
 import { Provider } from 'react-redux'
 import store from '../../utils/store'
+import Base from '../../layouts/Base'
 
 const App = () => {
+  const baseUrl = `/admin/plugins/${pluginId}`;
   return (
     <div>
       <Provider store={store}>
-        <Switch>
-          <Route path={`/plugins/${pluginId}`} component={Calendar} exact  />
-          <Route path={`/plugins/${pluginId}/daily`} component={Daily} exact  />
-          <Route component={AnErrorOccurred} />
-        </Switch>
+        <BrowserRouter>
+          <Switch>
+            <Base>
+              <Route path={`${baseUrl}`} component={Calendar} exact />
+              <Route path={`${baseUrl}/daily`} component={Daily} exact />
+            </Base>
+          </Switch>
+        </BrowserRouter>
       </Provider>
     </div>
   );
